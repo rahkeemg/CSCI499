@@ -14,7 +14,7 @@ class MongoConnection:
             print (document)
 
     def Insert(self, info):
-        self.collection.insert(info)
+        self.collection.insert_many(info)
         # insert ionformation into a collection.  Note: Key names can't contain '.' Maybe add a field: file type: java
         # collection.insert(
         #     [
@@ -22,6 +22,8 @@ class MongoConnection:
         #         {"Constant":{"metrics":{"package":1,"comments":70,"import":0,"else":0,"for":0,"try":0,"catch":0,"do":0,"while":0,"if":0,"total lines":172,"switch":0},"file_items":[{"Constant":{"package":0,"comments":0,"import":0,"else":0,"for":0,"try":0,"catch":0,"do":0,"while":0,"if":0,"total lines":154,"switch":0}}]}}
         #     ]
         # )
+    def Insert_ONE(self,info):
+        self.collection.insert_one(info)
 
     def Query(self, query):
         return None

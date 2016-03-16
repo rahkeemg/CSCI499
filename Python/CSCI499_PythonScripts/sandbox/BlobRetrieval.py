@@ -5,13 +5,12 @@ import git
 class BlobRetrieval:
     def __init__(self):
         self.blobs = []
-        return None
 
     def findFILE(self, item):
 
         # end statement
         if item.type == 'blob':
-            print item.abspath
+            # print item.abspath
             self.blobs.append(item)
             # return item
         else:
