@@ -7,9 +7,9 @@ __author__ = 'rahkeemg'
 # Purpose of this script: run Gitpy and Antlr4 parser on files from Git
 
 
-import os,os.path, git
+import os, os.path, git
 
-git_dir = "/home/rahkeemg/Documents/GitRepositories/NineGridImageView/"
+git_dir = "/home/rahkeemg/Documents/GitRepositories/WhereHows"
 g = git.cmd.Git(git_dir)
 
 from git import Repo
@@ -49,7 +49,7 @@ commits = list(repo.iter_commits('master'))
 # command = "java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava < /home/rahkeemg/Desktop/Antlr_scripts/Hello/HelloLexer.java"
 
 # this is the abridged command to use in python
-#command = "java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava < "
+# command = "java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava < "
 
 # os.system("java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava < /home/rahkeemg/workspace/sandbox2/src/java_gram/ProgramListener.java")
 
@@ -179,30 +179,116 @@ commits = list(repo.iter_commits('master'))
 # Adding repository specifi information to files.#
 ##################################################
 
-    #     # test_file = '/home/rahkeemg/Desktop/Antlr_scripts/lang_Gram/Java/java/JavaParser.java'
-    #     # test_file = '/home/rahkeemg/Desktop/GitRepositories/ant/src/main/org/apache/tools/ant/FileScanner.java'
-    #
-    #     print entry.abspath
-    #
-    #     test_file = entry.abspath
-    #     os_command = 'java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava {file}'.format(file=test_file)
-    #     # s = os.system(os_command)
-    #
-    #     j_response = subprocess.check_output(os_command,shell=True)
-    #     # used json.loads(j_response)['null'] to get the content of the object that doesn't have a name for key
-    #     dictionary = {test_file: json.loads(j_response)['null']}
-    #     print dictionary
+#     # test_file = '/home/rahkeemg/Desktop/Antlr_scripts/lang_Gram/Java/java/JavaParser.java'
+#     # test_file = '/home/rahkeemg/Desktop/GitRepositories/ant/src/main/org/apache/tools/ant/FileScanner.java'
+#
+#     print entry.abspath
+#
+#     test_file = entry.abspath
+#     os_command = 'java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava {file}'.format(file=test_file)
+#     # s = os.system(os_command)
+#
+#     j_response = subprocess.check_output(os_command,shell=True)
+#     # used json.loads(j_response)['null'] to get the content of the object that doesn't have a name for key
+#     dictionary = {test_file: json.loads(j_response)['null']}
+#     print dictionary
 
-    # Here is where the remainder of file information is added to
-    # JSON object, now converted to a dictionary.
-    # File_name, repository, file_path, commit_id, date, author
-    # dictionary['FILE_NAME.JAVA']['commit_id'] = commits[len(commits)-1].hexsha
-    # dictionary['FILE_NAME.JAVA']['repository'] = git_dir
-    # dictionary['FILE_NAME.JAVA']['author'] = commits[len(commits)-1].author.name
-    # dictionary['FILE_NAME.JAVA']['author_email'] = commits[len(commits)-1].author.email
-    # dictionary['FILE_NAME.JAVA']['date'] = commits[len(commits)-1].committed_date
-    # dictionary['FILE_NAME.JAVA']['abs_path'] = commits[len(commits)-1].abspath
-    # dictionary['FILE_NAME.JAVA']['rel_path'] = commits[len(commits)-1].path
+# Here is where the remainder of file information is added to
+# JSON object, now converted to a dictionary.
+# File_name, repository, file_path, commit_id, date, author
+# dictionary['FILE_NAME.JAVA']['commit_id'] = commits[len(commits)-1].hexsha
+# dictionary['FILE_NAME.JAVA']['repository'] = git_dir
+# dictionary['FILE_NAME.JAVA']['author'] = commits[len(commits)-1].author.name
+# dictionary['FILE_NAME.JAVA']['author_email'] = commits[len(commits)-1].author.email
+# dictionary['FILE_NAME.JAVA']['date'] = commits[len(commits)-1].committed_date
+# dictionary['FILE_NAME.JAVA']['abs_path'] = commits[len(commits)-1].abspath
+# dictionary['FILE_NAME.JAVA']['rel_path'] = commits[len(commits)-1].path
 
 # END OF SECTION
 ###########################
+
+#############################
+# Using regex to sub dot in key field to different character
+###########################
+
+# from BlobRetrieval import BlobRetrieval
+# from MongoConnection.connection import MongoConnection
+# import subprocess, re, json
+#
+# for commit in commits:
+#
+#     print commit.hexsha
+#
+#     # get blobs of commits
+#     retrieval = BlobRetrieval()
+#     retrieval.findFILE(commit.tree)
+#
+#     for blob in retrieval.getBlobs():
+#
+#         if re.search(r'\.java', blob.path):
+#
+#             print blob.path
+#
+# #             os_command = 'java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava {file}'.format(file=blob.abspath)
+# #             j_response = subprocess.check_output(os_command, shell=True)
+#
+#
+#             cmd = ["java","-classpath","/home/rahkeemg/workspace/CSCI499_Java/bin/:/usr/local/lib/*:","java_gram.mainJava"]
+#             cmd.append(blob.abspath)
+#             j_response = subprocess.check_output(cmd,stderr= subprocess.STDOUT, shell=False)
+#
+#             c_file = json.loads(j_response)
+#             # c_file = json.loads(j_response)['null']
+#             print c_file
+#
+#             c_file['commit_id'] = commit.hexsha
+#             c_file['author'] = commit.author.name
+#             c_file['author_email'] = commit.author.email
+#             c_file['name'] = blob.path
+#             c_file['abs_path'] = blob.abspath
+#             c_file['repo'] = git_dir
+#
+#             # commit_files.append(c_file)
+#
+#             # The below block of code stores files one by one
+#             if len(c_file) > 0:
+#                 # Instance of Mongo database connection and collection to store info in
+#                 con = MongoConnection('Files', 'files')
+#                 con.Insert_ONE(c_file)
+
+#####################################################
+# Using traverse in GitPython instead of my own class#
+#####################################################
+
+from BlobRetrieval import BlobRetrieval
+from MongoConnection.connection import MongoConnection
+import re, subprocess, json
+
+blobs = []
+
+cmd = ["java","-classpath","/home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*:","java_gram.mainJava"]
+for commit in commits:
+    print commit.hexsha
+    for entry in commit.tree.traverse():
+        if re.search(r'\.java', entry.path):
+            cmd.append(entry.abspath)
+            # os_command = 'java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava {file}'.format(file=entry.abspath.strip())
+            # j_response = subprocess.check_output(os_command, shell=True)
+            j_response = subprocess.check_output(cmd,stderr= subprocess.STDOUT, shell=False)
+
+            c_file = json.loads(j_response)['null']
+            # c_file = json.loads(j_response)['null']
+            print entry.path, " ", c_file
+
+            c_file['commit_id'] = commit.hexsha
+            c_file['author'] = commit.author.name
+            c_file['author_email'] = commit.author.email
+            c_file['name'] = entry.path
+            c_file['abs_path'] = entry.abspath
+            c_file['repo'] = git_dir
+
+            # The below block of code stores files one by one
+            if len(c_file) > 0:
+                # Instance of Mongo database connection and collection to store info in
+                con = MongoConnection('Files', 'files')
+                con.Insert_ONE(c_file)

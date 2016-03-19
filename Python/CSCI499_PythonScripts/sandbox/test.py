@@ -6,7 +6,7 @@ from BlobRetrieval import BlobRetrieval
 from MongoConnection.connection import MongoConnection
 import git, json, subprocess, re
 
-git_dir = "/home/rahkeemg/Documents/GitRepositories/nasa/mct"
+git_dir = "/home/rahkeemg/Documents/GitRepositories/WhereHows"
 # g = git.cmd.Git(git_dir)
 
 from git import Repo

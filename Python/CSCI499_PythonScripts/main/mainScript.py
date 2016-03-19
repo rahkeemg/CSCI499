@@ -24,7 +24,6 @@ for commit in commits:
     tree = commit.tree  # get the tree for that commit
     print commit.hexsha
 
-
     #create recursice class to get all blob files from commit tree
     retrieval = BlobRetrieval()
     retrieval.findFILE(tree)
