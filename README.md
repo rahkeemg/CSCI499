@@ -15,11 +15,21 @@ json-simple (using 1.1.1)
 https://github.com/fangyidong/json-simple   		   Github repository
 https://code.google.com/archive/p/json-simple/downloads    Direct download link
 
+MongoDB tools:
+
+To help manage information in Mongo Databases, I am using MongoChef GUI
+http://3t.io/mongochef/
+
+MongoDB website
+https://www.mongodb.org/
 
 Python tools:  *Recommend usinng pip to install these tools 
-
+ 
 Pymongo (using 3.2.1)
 http://api.mongodb.org/python/current/index.html
 
 GitPython 
 http://gitpython.readthedocs.org/en/stable/index.html
+
+
+
