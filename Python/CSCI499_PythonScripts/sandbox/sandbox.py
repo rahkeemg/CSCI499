@@ -9,7 +9,7 @@ __author__ = 'rahkeemg'
 
 import os, os.path, git
 
-git_dir = "/home/rahkeemg/Documents/GitRepositories/WhereHows"
+git_dir = "/home/rahkeemg/Documents/GitRepositories/NineGridImageView"
 g = git.cmd.Git(git_dir)
 
 from git import Repo
@@ -260,35 +260,40 @@ commits = list(repo.iter_commits('master'))
 # Using traverse in GitPython instead of my own class#
 #####################################################
 
-from BlobRetrieval import BlobRetrieval
-from MongoConnection.connection import MongoConnection
-import re, subprocess, json
-
-blobs = []
-
-cmd = ["java","-classpath","/home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*:","java_gram.mainJava"]
-for commit in commits:
-    print commit.hexsha
-    for entry in commit.tree.traverse():
-        if re.search(r'\.java', entry.path):
-            cmd.append(entry.abspath)
-            # os_command = 'java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava {file}'.format(file=entry.abspath.strip())
-            # j_response = subprocess.check_output(os_command, shell=True)
-            j_response = subprocess.check_output(cmd,stderr= subprocess.STDOUT, shell=False)
-
-            c_file = json.loads(j_response)['null']
-            # c_file = json.loads(j_response)['null']
-            print entry.path, " ", c_file
-
-            c_file['commit_id'] = commit.hexsha
-            c_file['author'] = commit.author.name
-            c_file['author_email'] = commit.author.email
-            c_file['name'] = entry.path
-            c_file['abs_path'] = entry.abspath
-            c_file['repo'] = git_dir
-
-            # The below block of code stores files one by one
-            if len(c_file) > 0:
-                # Instance of Mongo database connection and collection to store info in
-                con = MongoConnection('Files', 'files')
-                con.Insert_ONE(c_file)
+# from BlobRetrieval import BlobRetrieval
+# from MongoConnection.connection import MongoConnection
+# import re, subprocess, json
+#
+#
+# commit_files = []
+# cmd = ["java","-classpath","/home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*:","java_gram.mainJava"]
+# for commit in commits:
+#     print commit.hexsha
+#     for entry in commit.tree.traverse():
+#         if re.search(r'\.java', entry.path):
+#             cmd.append(entry.abspath)
+#             # os_command = 'java -classpath /home/rahkeemg/workspace/sandbox2/bin/:/usr/local/lib/*: java_gram.mainJava {file}'.format(file=entry.abspath.strip())
+#             # j_response = subprocess.check_output(os_command, shell=True)
+#             j_response = subprocess.check_output(cmd,stderr= subprocess.STDOUT, shell=False)
+#
+#             c_file = json.loads(j_response)['null']
+#             # c_file = json.loads(j_response)['null']
+#             print entry.path, " ", c_file
+#
+#             c_file['commit_id'] = commit.hexsha
+#             c_file['author'] = commit.author.name
+#             c_file['author_email'] = commit.author.email
+#             c_file['name'] = entry.path
+#             c_file['abs_path'] = entry.abspath
+#             c_file['repo'] = git_dir
+#
+#             commit_files.append(c_file)
+#
+#             # The below block of code stores files one by one
+#             # if len(c_file) > 0:
+#             #     # Instance of Mongo database connection and collection to store info in
+#             #     con = MongoConnection('Files', 'files')
+#             #     con.Insert_ONE(c_file)
+#     if len(commit_files) > 0:
+#         con = MongoConnection('Files','files')
+#         con.Insert(commit_files)
