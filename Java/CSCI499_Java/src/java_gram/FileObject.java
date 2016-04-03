@@ -1,5 +1,11 @@
 package java_gram;
 
+/**
+ * This class is to represent a complete Java file.
+ * Objects made with this class will encapsulate smaller 
+ * the FileItem objects.
+ */
+
 import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -47,7 +53,6 @@ public class FileObject extends JSONObject {
 		//by Antlr4 parser
 		object.put("metrics", metrics);		
 		object.put("file_items", file_items);
-		
 		this.put(this.file_name, object);
 	}
 

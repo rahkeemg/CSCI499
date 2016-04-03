@@ -35,6 +35,10 @@ public class FileItem extends JSONObject {
 	}
 	
 	public void generate(){
-		this.put(this.name, this.metrics);
+//		this.put(this.name, this.metrics);
+		
+		//Trying this means of setting up field 
+		this.put("name", this.name);
+		this.put("metrics", this.metrics);
 	}
 }

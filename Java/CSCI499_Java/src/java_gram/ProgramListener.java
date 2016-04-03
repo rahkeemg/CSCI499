@@ -1,5 +1,6 @@
 package java_gram;
 
+import java.util.regex.*;
 import org.antlr.v4.runtime.TokenStream;
 import org.json.simple.*;
 /**
@@ -27,23 +28,7 @@ public class ProgramListener extends JavaBaseListener {
 		metrics.addMetrics(s);
 
 		file = new FileObject();
-
-		/*
-		 * Consider taking out set methods 
-		 * except that to set metrics.  These 
-		 * will be set in python later on 
-		 */
-		
-//		file.setFile_name("FILE_NAME.JAVA");
-//		file.setAbs_path("Path/to/file");
-//		file.setCommit_id("aid82n384@asd");
-//		file.setRepository("MyRepository");
-//		file.setRel_path("/rel_path");
 		file.setMetrics(metrics);
-		
-//		System.out.println(file.toJSONString());
-//		System.out.println(tokens.get(0) + "\n" + tokens.get(tokens.size()- 1));
-//		System.out.println(tokens.getText());
 	}
 	
 	@Override
@@ -72,22 +57,16 @@ public class ProgramListener extends JavaBaseListener {
 		f_item.setName(ctx.Identifier().getText() + "" + ctx.formalParameters().getText());
 		f_item.setMetric(metrics);
 		f_item.generate();
-		
-//		System.out.println(metrics.toJSONString());
-		file.addFileItem(f_item);
 
+		file.addFileItem(f_item);
 	}
 
 	/** Listens for the enter class declaration */
 	@Override
 	public void enterClassDeclaration(JavaParser.ClassDeclarationContext ctx) {
 		
-//		System.out.println(ctx.Identifier());
 		TokenStream tokens = parser.getTokenStream();
 		Stats s = new Stats(tokens, ctx.getStart(), ctx.getStop());
-//		s.count();
-//		System.out.println(ctx.getStart() + "\n" + ctx.getStop());
-//		System.out.println(tokens.getText(ctx));
 		
 		//Create file item object for Class Rule
 		FileItem f_item =  new FileItem();
@@ -111,12 +90,9 @@ public class ProgramListener extends JavaBaseListener {
 	/** Listen to matches of methodDeclaration */
 	@Override
 	public void enterMethodDeclaration(JavaParser.MethodDeclarationContext ctx) {
-//		System.out.println(ctx.Identifier());
+
 		TokenStream tokens = parser.getTokenStream();
 		Stats s = new Stats(tokens, ctx.getStart(), ctx.getStop());
-//		s.count();
-//		System.out.println(ctx.getStart() + "\n" + ctx.getStop());
-//		System.out.println(tokens.getText(ctx));
 		
 		//Create file item object for Constructor
 		FileItem f_item =  new FileItem();
@@ -139,22 +115,18 @@ public class ProgramListener extends JavaBaseListener {
 	@Override
 	public void enterInterfaceDeclaration(JavaParser.InterfaceDeclarationContext ctx) { 
 		TokenStream tokens = parser.getTokenStream();
-//		System.out.println("\n" + ctx.Identifier() + " Body declaration");
+
 		Stats s = new Stats(tokens, ctx.getStart(), ctx.getStop());
 		s.count();
-//		System.out.println(ctx.interfaceBody().interfaceBodyDeclaration(0));
-//		System.out.println(tokens.getText(ctx));
 	}
 	
 	/** Listens for interface method declaration call */
 	@Override
 	public void enterInterfaceMethodDeclaration( JavaParser.InterfaceMethodDeclarationContext ctx) {
-//		System.out.println( "\n" + ctx.Identifier());
+
 		TokenStream tokens = parser.getTokenStream();
 		Stats s = new Stats(tokens, ctx.getStart(), ctx.getStop());
 		s.count();
-//		System.out.println(ctx.getStart() + "\n" + ctx.getStop());
-//		System.out.println(tokens.getText(ctx));
 		
 		//Create file item object for Constructor
 		FileItem f_item =  new FileItem();
