@@ -37,20 +37,6 @@ public class FileObject extends JSONObject {
 
 		JSONObject object = new JSONObject();
 
-		/*
-		 * Consider taking out the following 
-		 * items that are placed in the object.
-		 * They can be added to the JSON object 
-		 * in the python script.  
-		 * Parser doesn't need this extra information
-		 */
-//		object.put("abs_path", abs_path);
-//		object.put("rel_path", rel_path);
-//		object.put("repository", repository);
-//		object.put("commit_id", commit_id);
-		
-		//Keep these two below.  They are computed 
-		//by Antlr4 parser
 		object.put("metrics", metrics);		
 		object.put("file_items", file_items);
 		this.put(this.file_name, object);
