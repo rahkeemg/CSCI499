@@ -25,7 +25,7 @@ master = heads.master  # get the master repository
 # print master.commit.hexsha, '\n', master.commit.author, '\n', master.commit.message
 
 # get all of the commits on the master branch
-commits = list(repo.iter_commits('master'))
+commits = list(repo.iter_commits(master))
 # print commits[0].tree[3].name
 
 # print commits[0].message
