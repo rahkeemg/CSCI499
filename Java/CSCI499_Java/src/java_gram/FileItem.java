@@ -14,8 +14,9 @@ import org.json.simple.JSONObject;
 
 public class FileItem extends JSONObject {
 
-	private String name;
+	private String name, type;
 	private MetricsObj metrics;
+	
 	
 	public FileItem() {
 		// TODO Auto-generated constructor stub
@@ -29,6 +30,10 @@ public class FileItem extends JSONObject {
 	public void setName(String s){
 		name = s;
 	}
+	
+	public void setType(String t){
+		type = t;
+	}
 
 	public void setMetric(MetricsObj obj){
 		metrics = obj;
@@ -39,6 +44,7 @@ public class FileItem extends JSONObject {
 		
 		//Trying this means of setting up field 
 		this.put("name", this.name);
+		this.put("type", this.type);
 		this.put("metrics", this.metrics);
 	}
 }

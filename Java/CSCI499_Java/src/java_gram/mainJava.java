@@ -23,7 +23,7 @@ public class mainJava
 		{
 			is = new FileInputStream(inputFile);
 		}
-
+			
 		// create a CharStream that reads from standard input
 		ANTLRInputStream input = new ANTLRInputStream(is);
 
