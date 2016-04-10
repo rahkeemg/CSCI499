@@ -12,7 +12,7 @@ import git, json, subprocess, re
 
 # import os.path
 
-git_dir = '/home/rahkeemg/Documents/GitRepositories/WhereHows'
+git_dir = '/home/rahkeemg/Documents/GitRepositories/Good_Bad/Good/picasso'
 # g = git.cmd.Git(git_dir)
 
 # make an instance of the repository from specified path
@@ -58,19 +58,18 @@ for i in range(len(commits) - 1, 0, -1):
             except:
                 pass
 
-            # c_file = json.loads(j_response)['null']
             c_file['commit_id'] = commits[i].hexsha
             c_file['author'] = commits[i].author.name
             c_file['author_email'] = commits[i].author.email
             c_file['name'] = current_file
             c_file['abs_path'] = '{repo}/{file}'.format(repo=git_dir,file=current_file)
             c_file['repo'] = git_dir
-            # c_file['commit_num'] = commit_num
+            c_file['commit_num'] = commit_num
 
             print c_file, '\n'
 
             if len(c_file) > 0:
-                con = MongoConnection('Files','files')
+                con = MongoConnection('picasso','commits')
                 con.Insert_ONE(c_file)
 
             cmd.pop()
