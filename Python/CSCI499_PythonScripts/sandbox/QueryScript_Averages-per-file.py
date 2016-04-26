@@ -1,5 +1,5 @@
 #! usr/bin/env python
-
+from __future__ import division
 from MongoConnection.connection import MongoConnection
 
 # con = MongoConnection('slidingmenu','commits')
@@ -68,9 +68,9 @@ from MongoConnection.connection import MongoConnection
 
 from git import *
 
-git_dir = '/home/rahkeemg/Documents/GitRepositories/Good_Bad/Other/bubble'
+git_dir = '/home/rahkeemg/Documents/GitRepositories/Good_Bad/Other/Catacomb-Snatch'
 
-con = MongoConnection('bubble','commits')
+con = MongoConnection('Catacomb-Snatch','commits')
 
 # make an instance of the repository from specified pathlines
 repo = Repo(path=git_dir)
@@ -125,7 +125,7 @@ import plotly.graph_objs as go
 
 
 #Idea to get specific entries out of dictionary
-y_info = {'files':[], 'lines':[], 'comments': [], 'loc': [], 'CLASS':[], 'ENUM': [],
+y_info = {'files_in_commit':[], 'total lines':[], 'comments': [], 'loc': [], 'CLASS':[], 'ENUM': [],
           'ANNOTATION':[], 'CONSTRUCTOR':[], 'METHOD':[], 'INTERFACE': [],
           'if':[], 'else':[], 'try':[],'catch':[], 'do': [], 'while': [],
           'for':[], 'switch':[], 'case': [],'import': [], 'package': [], }
@@ -133,95 +133,95 @@ y_info = {'files':[], 'lines':[], 'comments': [], 'loc': [], 'CLASS':[], 'ENUM':
 for i in range(0,limit):
     c = commit_info[i]
     # y_info_total_files.append(commit_info[i]['files_in_commit'])
-    y_info['files'].append(c['files_in_commit'])
+    y_info['files_in_commit'].append(c['files_in_commit'])
 
     if c.__contains__('total lines'):
-        y_info['lines'].append(c['total lines'])
-    else: y_info['lines'].append(0)
+        y_info['total lines'].append(c['total lines']/c['files_in_commit'])
+    else: y_info['total lines'].append(0)
 
     if c.__contains__('comments'):
-        y_info['comments'].append(c['comments'])
+        y_info['comments'].append(c['comments']/c['files_in_commit'])
     else: y_info['comments'].append(0)
 
     if c.__contains__('loc'):
-        y_info['loc'].append(c['loc'])
+        y_info['loc'].append(c['loc']/c['files_in_commit'])
     else: y_info['loc'].append(0)
 
     if c.__contains__('CLASS'):
-        y_info['CLASS'].append(c['CLASS'])
+        y_info['CLASS'].append(c['CLASS']/c['files_in_commit'])
     else: y_info['CLASS'].append(0)
 
     if c.__contains__('INTERFACE'):
-        y_info['INTERFACE'].append(c['INTERFACE'])
+        y_info['INTERFACE'].append(c['INTERFACE']/c['files_in_commit'])
     else: y_info['INTERFACE'].append(0)
 
     if c.__contains__('METHOD'):
-        y_info['METHOD'].append(c['METHOD'])
+        y_info['METHOD'].append(c['METHOD']/c['files_in_commit'])
     else: y_info['METHOD'].append(0)
 
     if c.__contains__('CONSTRUCTOR'):
-        y_info['CONSTRUCTOR'].append(c['CONSTRUCTOR'])
+        y_info['CONSTRUCTOR'].append(c['CONSTRUCTOR']/c['files_in_commit'])
     else: y_info['CONSTRUCTOR'].append(0)
 
     if c.__contains__('ENUM'):
-        y_info['ENUM'].append(c['ENUM'])
+        y_info['ENUM'].append(c['ENUM']/c['files_in_commit'])
     else: y_info['ENUM'].append(0)
 
     if c.__contains__('ANNOTATION'):
-        y_info['ANNOTATION'].append(c['ANNOTATION'])
+        y_info['ANNOTATION'].append(c['ANNOTATION']/c['files_in_commit'])
     else: y_info['ANNOTATION'].append(0)
 
     if c.__contains__('if'):
-        y_info['if'].append(c['if'])
+        y_info['if'].append(c['if']/c['files_in_commit'])
     else: y_info['if'].append(0)
 
     if c.__contains__('else'):
-        y_info['else'].append(c['else'])
+        y_info['else'].append(c['else']/c['files_in_commit'])
     else: y_info['else'].append(0)
 
     if c.__contains__('switch'):
-        y_info['switch'].append(c['switch'])
+        y_info['switch'].append(c['switch']/c['files_in_commit'])
     else: y_info['switch'].append(0)
 
     if c.__contains__('case'):
-        y_info['case'].append(c['case'])
+        y_info['case'].append(c['case']/c['files_in_commit'])
     else: y_info['case'].append(0)
 
     if c.__contains__('for'):
-        y_info['for'].append(c['for'])
+        y_info['for'].append(c['for']/c['files_in_commit'])
     else: y_info['for'].append(0)
 
     if c.__contains__('while'):
-        y_info['while'].append(c['while'])
+        y_info['while'].append(c['while']/c['files_in_commit'])
     else: y_info['while'].append(0)
 
     if c.__contains__('do'):
-        y_info['do'].append(c['do'])
+        y_info['do'].append(c['do']/c['files_in_commit'])
     else: y_info['do'].append(0)
 
     if c.__contains__('package'):
-        y_info['package'].append(c['package'])
+        y_info['package'].append(c['package']/c['files_in_commit'])
     else: y_info['package'].append(0)
 
     if c.__contains__('import'):
-        y_info['import'].append(c['import'])
+        y_info['import'].append(c['import']/c['files_in_commit'])
     else: y_info['import'].append(0)
 
     if c.__contains__('try'):
-        y_info['try'].append(c['try'])
+        y_info['try'].append(c['try']/c['files_in_commit'])
     else: y_info['try'].append(0)
 
     if c.__contains__('catch'):
-        y_info['catch'].append(c['catch'])
+        y_info['catch'].append(c['catch']/c['files_in_commit'])
     else: y_info['catch'].append(0)
 
 #Code to plot data in scatter plot
 py.offline.plot({
     "data": [
         # Scatter(x=range(0,len(x_files_in_commits)-1), y=x_files_in_commits)
-        go.Scatter(x=range(0, limit), y=y_info['files'], name='Files'),
+        # go.Scatter(x=range(0, limit), y=y_info['files_in_commit'], name='Files'),
         go.Scatter(x=range(0,limit), y=y_info['comments'], name='Comments'),
-        go.Scatter(x=range(0,limit), y=y_info['lines'], name='Total Lines'),
+        go.Scatter(x=range(0,limit), y=y_info['total lines'], name='Total Lines'),
         go.Scatter(x=range(0,limit), y=y_info['loc'], name='L.O.C'),
         go.Scatter(x=range(0,limit), y=y_info['INTERFACE'], name='Interfaces'),
         go.Scatter(x=range(0,limit), y=y_info['CLASS'], name='Classes'),
@@ -231,58 +231,19 @@ py.offline.plot({
         go.Scatter(x=range(0,limit), y=y_info['ANNOTATION'], name='Annotations'),
         go.Scatter(x=range(0,limit), y=y_info['if'], name='if'),
         go.Scatter(x=range(0,limit), y=y_info['else'], name='else'),
-        go.Scatter(x=range(0,limit), y=y_info['try'], name='try'),
-        go.Scatter(x=range(0,limit), y=y_info['catch'], name='catch'),
         go.Scatter(x=range(0,limit), y=y_info['switch'], name='switch'),
         go.Scatter(x=range(0,limit), y=y_info['case'], name='case'),
         go.Scatter(x=range(0,limit), y=y_info['for'], name='for'),
         go.Scatter(x=range(0,limit), y=y_info['do'], name='do'),
         go.Scatter(x=range(0,limit), y=y_info['while'], name='while'),
+        go.Scatter(x=range(0,limit), y=y_info['try'], name='try'),
+        go.Scatter(x=range(0,limit), y=y_info['catch'], name='catch'),
         go.Scatter(x=range(0,limit), y=y_info['import'], name='import'),
         go.Scatter(x=range(0,limit), y=y_info['package'], name='package'),
     ],
     "layout": go.Layout(
-        title="Bubble totals",
+        title="Catacomb-Snatch Averages per file",
         xaxis = dict(title = 'Commit'),
         yaxis = dict(title = '#'),
     )
 })
-
-###################################################
-# Code to plot as bar graph
-#
-# Learn about API authentication here: https://plot.ly/python/getting-started
-# Find your api_key here: https://plot.ly/settings/api
-##################################################
-
-# import plotly.plotly as py
-# import plotly as py
-# import plotly.graph_objs as go
-#
-# trace0 = go.Bar(
-#     x=range(0, limit),
-#     y=y_info['lines'],
-#     name='Total lines of code',
-#     marker=dict(
-#         color='rgb(49,130,189)'
-#     )
-# )
-# trace1 = go.Bar(
-#     x=range(0, limit),
-#     y=y_info['loc'],
-#     name='L.O.C',
-#     marker=dict(
-#         color='rgb(204,120,4)',
-#     )
-# )
-# data = [trace0, trace1]
-# layout = go.Layout(
-#     title='Hystrix',
-#     xaxis=dict(
-#         # set x-axis' labels direction at 45 degree angle
-#         tickangle=-45,
-#     ),
-#     barmode='group',
-# )
-# fig = go.Figure(data=data, layout=layout)
-# py.offline.plot(fig, filename='SlidingMenu_angled-text-bar.html')

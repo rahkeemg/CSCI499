@@ -12,7 +12,10 @@ import git, json, subprocess, re
 
 # import os.path
 
-git_dir = '/home/rahkeemg/Documents/GitRepositories/Good_Bad/Good/picasso'
+git_dir = '/home/rahkeemg/Documents/GitRepositories/Good_Bad/Good/Hystrix'
+# git_dir = '/home/rahkeemg/Documents/GitRepositories/Good_Bad/Good/SlidingMenu'
+# git_dir = '/home/rahkeemg/Documents/GitRepositories/Good_Bad/Good/json-simple'
+
 # g = git.cmd.Git(git_dir)
 
 # make an instance of the repository from specified path
@@ -30,12 +33,15 @@ commits = list(repo.iter_commits(master))
 
 cmd = ['java', '-classpath', '/home/rahkeemg/workspace/CSCI499_Java/bin/:/usr/local/lib/*:', 'java_gram.mainJava']
 
-for i in range(len(commits) - 1, 0, -1):
+# for i in range(len(commits) - 1, 0, -1):
+for i in range(1502, 1503):
+
+    hexsha = commits[i].hexsha
+    commit_num = len(commits) -1 -i
 
     g.checkout(commits[i])
 
     commit_files = g.ls_files().split('\n')
-    commit_num = len(commits) -1 -i
 
     print 'value of i: ', i, '\tcommit number:', commit_num
 
@@ -69,7 +75,9 @@ for i in range(len(commits) - 1, 0, -1):
             print c_file, '\n'
 
             if len(c_file) > 0:
-                con = MongoConnection('picasso','commits')
+                # con = MongoConnection('JazminServer','commits')
+                con = MongoConnection('hystrix','commits')
+                # con = MongoConnection('picasso','commits')
                 con.Insert_ONE(c_file)
 
             cmd.pop()

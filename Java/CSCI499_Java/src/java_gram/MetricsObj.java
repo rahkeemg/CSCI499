@@ -24,6 +24,7 @@ public class MetricsObj extends JSONObject {
 		this.put("import", s.getImport());
 		this.put("package", s.getPackage());
 		this.put("comments", s.getComments());
+		this.put("loc", s.getLoc());
 		this.put("total lines", s.totalLines());
 		this.put("try", s.getTry());
 		this.put("catch", s.getCatch());
@@ -33,5 +34,6 @@ public class MetricsObj extends JSONObject {
 		this.put("while", s.getWhile());
 		this.put("for", s.getFor());
 		this.put("switch", s.getSwitch());
+		this.put("case", s.getCase());		
 	}
 }
